@@ -5,19 +5,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import sh.charlie.chitchat.commands.subcommands.FormatsCommand;
 import sh.charlie.chitchat.commands.subcommands.ReloadCommand;
 import java.util.*;
 
-public class AnalyseCommand implements CommandExecutor {
+public class ChitChatCommand implements CommandExecutor {
 
     private final ChitChatPlugin plugin;
     private final Map<String, SubCommand> commands = new HashMap<>();
 
-    public AnalyseCommand(ChitChatPlugin plugin) {
+    public ChitChatCommand(ChitChatPlugin plugin) {
         this.plugin = plugin;
 
         Arrays.asList(
-                new ReloadCommand(plugin)
+                new ReloadCommand(plugin),
+                new FormatsCommand(plugin)
         ).forEach(command -> commands.put(command.getName(), command));
     }
 

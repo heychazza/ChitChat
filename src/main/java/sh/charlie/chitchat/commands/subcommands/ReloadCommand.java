@@ -13,6 +13,8 @@ public class ReloadCommand extends SubCommand {
     @Override
     public void execute(Player player, String[] args) {
         plugin.reloadConfig();
+        plugin.setFormats();
+
         player.sendMessage(plugin.parse("&b[ChitChat] &7Configuration reloaded."));
     }
 
