@@ -1,4 +1,4 @@
-
+![img.png](.github/img.png)
 # ChitChat
 A lightweight, simple-to-use chat plugin for Spigot and Paper Minecraft Servers - that supports 1.16+ hex-based styling, tooltips, click commands and much more.
 
