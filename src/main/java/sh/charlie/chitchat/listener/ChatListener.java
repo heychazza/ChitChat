@@ -12,7 +12,6 @@ import sh.charlie.chitchat.ChitChatPlugin;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ChatListener implements Listener {
 
@@ -30,7 +29,7 @@ public class ChatListener implements Listener {
         List<String> formats = plugin.getFormats().stream().sorted(Comparator.comparing(item -> plugin.getConfig().getInt("formats." + item + ".priority"))).toList();
 
         for (String format : formats) {
-            if(!format.equals("default") && !player.hasPermission("chatformat." + format)) continue;
+            if (!format.equals("default") && !player.hasPermission("chatformat." + format)) continue;
 
             StringBuilder miniStr = new StringBuilder();
 
@@ -41,21 +40,21 @@ public class ChatListener implements Listener {
                 List<String> textTooltip = plugin.getConfig().getStringList("formats." + format + "." + configKey + "_tooltip");
                 String textClickCommand = plugin.getConfig().getString("formats." + format + "." + configKey + "_click_command");
 
-                if(textTooltip.size() > 0) {
+                if (textTooltip.size() > 0) {
                     miniStr.append("<hover:show_text:\"").append(String.join("\n", textTooltip)).append("\">");
                 }
 
-                if(textClickCommand != null && !textClickCommand.isEmpty()) {
+                if (textClickCommand != null && !textClickCommand.isEmpty()) {
                     miniStr.append("<click:suggest_command:").append(textClickCommand).append(">");
                 }
 
                 miniStr.append(text);
 
-                if(textTooltip.size() > 0) {
+                if (textTooltip.size() > 0) {
                     miniStr.append("</hover>");
                 }
 
-                if(textClickCommand != null && !textClickCommand.isEmpty()) {
+                if (textClickCommand != null && !textClickCommand.isEmpty()) {
                     miniStr.append("</click>");
                 }
             }
@@ -67,7 +66,7 @@ public class ChatListener implements Listener {
                 miniStr = new StringBuilder(PlaceholderAPI.setPlaceholders(e.getPlayer(), miniStr.toString()));
             }
 
-            plugin.getAdventure().player(e.getPlayer()).sendMessage(miniMessage.parse(miniStr.toString()));
+            plugin.getAdventure().all().sendMessage(miniMessage.parse(miniStr.toString()));
             break;
         }
     }
