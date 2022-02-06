@@ -6,10 +6,23 @@ This plugin is **heavily** inspired by [DeluxeChat](https://www.spigotmc.org/res
 
 This plugin was built in a day as a fun, one-off project, and so features like Bungeecord support doesn't currently exist. Feel free to do a pull request if you wish to add these features, as I currently do not have the time to do so.
 
+---
+
 ### Commands:
 - /chitchat - Overall Usage
 - /chitchat reload - Reload Config
 - /chitchat formats - List Formats
+
+---
+
+### Features:
+- [x] HEX Support
+- [x] Priority-based Formats
+- [ ] Cross-Server Chat (BungeeCord)
+- [ ] Private Messaging
+- [ ] Social Spy
+
+---
 
 ### Format Structure:
 ```yml
@@ -45,6 +58,8 @@ formats:
     chat_tooltip: []
     chat_click_command: ''
 ```
+
+---
 
 ### Information
 This plugin currently __doesn't__ support BungeeCord cross-server talking, nor any form of permissions for allowing custom colours to be typed into chat.
