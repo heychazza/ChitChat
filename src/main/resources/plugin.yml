@@ -1,0 +1,11 @@
+name: ChitChat
+main: sh.charlie.chitchat.ChitChatPlugin
+version: ${version}
+author: "heychazza"
+website: "https://charlie.sh"
+description: "The modern day chatting solution."
+softdepend:
+  - "PlaceholderAPI"
+commands:
+  chitchat:
+    description: Main command of the plugin
