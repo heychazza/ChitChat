@@ -1,13 +1,16 @@
 package sh.charlie.chitchat.commands;
 
-import sh.charlie.chitchat.ChitChatPlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import sh.charlie.chitchat.ChitChatPlugin;
 import sh.charlie.chitchat.commands.subcommands.FormatsCommand;
 import sh.charlie.chitchat.commands.subcommands.ReloadCommand;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChitChatCommand implements CommandExecutor {
 

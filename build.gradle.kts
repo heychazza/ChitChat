@@ -25,7 +25,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.22")
 
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
-    implementation("net.kyori:adventure-platform-bukkit:4.0.1-SNAPSHOT")
+    implementation("net.kyori:adventure-platform-bukkit:4.0.1")
 }
 
 group = "sh.charlie"
@@ -35,7 +35,9 @@ java.sourceCompatibility = JavaVersion.VERSION_16
 
 val shadowJar: ShadowJar by tasks
 shadowJar.apply {
-    destinationDirectory.set(File("/Users/charlie/Documents/MCServer/plugins"))
+    archiveBaseName.set("ChitChat-${project.version}")
+    archiveClassifier.set("")
+    archiveVersion.set("")
 }
 
 tasks.withType<ProcessResources> {
