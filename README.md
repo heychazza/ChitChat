@@ -18,6 +18,7 @@ This plugin was built in a day as a fun, one-off project, and so features like B
 ### Features:
 - [x] HEX Support
 - [x] Priority-based Formats
+- [x] PlaceholderAPI Support
 - [ ] Cross-Server Chat (BungeeCord)
 - [ ] Private Messaging
 - [ ] Social Spy
@@ -33,20 +34,21 @@ formats:
     # Channel styling:
     channel: '[%player_exp%] '
     channel_tooltip:
-      - '&c%player_name%s &7XP'
-    channel_click_command: '/msg %player_name% '
+      - '&c%player_name%s &7current experience.'
+    channel_click_command: /xp
 
     # Prefix styling:
-    prefix: ''
-    prefix_tooltip: []
-    prefix_click_command: '[EXECUTE]/ranks'
+    prefix: '%vault_prefix%'
+    prefix_tooltip:
+      - "&7This is a rank."
+    prefix_click_command: '/buy'
 
     # Name styling:
     name: '<rainbow>%player_name%</rainbow>'
     name_tooltip:
       - '&7-=[&6✦&7]=-  &7-=[&e%player_name%&7]=-  &7-=[&6✦&7]=-'
       - '&5Sent: &f%player_timestamp%'
-    name_click_command: /ranks
+    name_click_command: '/profile %player_name%'
 
     # Suffix styling:
     suffix: ' <#22d3ee>» '
@@ -58,8 +60,3 @@ formats:
     chat_tooltip: []
     chat_click_command: ''
 ```
-
----
-
-### Information
-This plugin currently __doesn't__ support BungeeCord cross-server talking, nor any form of permissions for allowing custom colours to be typed into chat.
