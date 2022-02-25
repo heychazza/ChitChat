@@ -33,7 +33,7 @@ public class ChatListener implements Listener {
 
             StringBuilder miniStr = new StringBuilder();
 
-            List<String> configKeys = Arrays.asList("channel", "name", "prefix", "suffix", "chat");
+            List<String> configKeys = Arrays.asList("channel", "prefix", "name", "suffix", "chat");
 
             for (String configKey : configKeys) {
                 String text = plugin.getConfig().getString("formats." + format + "." + configKey);
