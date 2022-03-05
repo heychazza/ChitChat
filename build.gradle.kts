@@ -24,12 +24,12 @@ dependencies {
 
     annotationProcessor("org.projectlombok:lombok:1.18.22")
 
-    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
-    implementation("net.kyori:adventure-platform-bukkit:4.0.1")
+    implementation("net.kyori:adventure-platform-bukkit:4.1.0")
+    implementation("net.kyori:adventure-text-minimessage:4.10.0")
 }
 
 group = "sh.charlie"
-version = "1.0.3"
+version = "1.0.4"
 description = "ChitChat"
 java.sourceCompatibility = JavaVersion.VERSION_16
 

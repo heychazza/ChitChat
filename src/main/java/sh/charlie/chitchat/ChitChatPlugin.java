@@ -26,7 +26,7 @@ public class ChitChatPlugin extends JavaPlugin implements Listener {
 
         setFormats();
 
-        miniMessage = MiniMessage.get();
+        miniMessage = MiniMessage.miniMessage();
         adventure = BukkitAudiences.create(this);
     }
 

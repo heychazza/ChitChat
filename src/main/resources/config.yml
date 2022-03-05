@@ -7,7 +7,7 @@ formats:
 
     channel: '[%player_exp%] '
     channel_tooltip:
-      - '&c%player_name%s &7XP'
+      - '<red>%player_name%s <gray>XP'
     channel_click_command: '/msg %player_name% '
 
     prefix: ''
@@ -16,14 +16,14 @@ formats:
 
     name: '<rainbow>%player_name%</rainbow>'
     name_tooltip:
-      - '&7-=[&6✦&7]=-  &7-=[&e%player_name%&7]=-  &7-=[&6✦&7]=-'
-      - '&5Sent: &f%player_timestamp%'
+      - '<gray>-=[<gold>✦<gray>]=-  <gray>-=[<yellow>%player_name%<gray>]=-  <gray>-=[<gold>✦<gray>]=-'
+      - '<purple>Sent: <white>%player_timestamp%'
     name_click_command: /ranks
 
     suffix: ' <#22d3ee>» '
     suffix_tooltip: []
     suffix_click_command: ''
 
-    chat: '&f%message%'
+    chat: '<white>%message%'
     chat_tooltip: []
     chat_click_command: ''

@@ -60,13 +60,14 @@ public class ChatListener implements Listener {
             }
 
             MiniMessage miniMessage = plugin.getMiniMessage();
-            miniStr = new StringBuilder(miniStr.toString().replace("%message%", miniMessage.escapeTokens(e.getMessage())));
+
+            miniStr = new StringBuilder(miniStr.toString().replace("%message%", miniMessage.escapeTags(e.getMessage())));
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
                 miniStr = new StringBuilder(PlaceholderAPI.setPlaceholders(e.getPlayer(), miniStr.toString()));
             }
 
-            plugin.getAdventure().all().sendMessage(miniMessage.parse(miniStr.toString()));
+            plugin.getAdventure().all().sendMessage(miniMessage.deserialize(miniStr.toString()));
             break;
         }
     }
