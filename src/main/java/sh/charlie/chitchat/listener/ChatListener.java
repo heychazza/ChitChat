@@ -63,6 +63,7 @@ public class ChatListener implements Listener {
 
             for (String configKey : configKeys) {
                 String text = plugin.getConfig().getString("formats." + format + "." + configKey);
+                String color = plugin.getConfig().getString("formats." + format + "." + configKey + "_color", "");
                 List<String> textTooltip = plugin.getConfig().getStringList("formats." + format + "." + configKey + "_tooltip");
                 String textClickCommand = plugin.getConfig().getString("formats." + format + "." + configKey + "_click_command");
 
@@ -74,6 +75,7 @@ public class ChatListener implements Listener {
                     miniStr.append("<click:suggest_command:").append(textClickCommand).append(">");
                 }
 
+                miniStr.append(color);
                 miniStr.append(text);
 
                 if (textClickCommand != null && !textClickCommand.isEmpty()) {
@@ -86,8 +88,11 @@ public class ChatListener implements Listener {
             }
 
             MiniMessage miniMessage = plugin.getMiniMessage();
+            String chatColor = plugin.getConfig().getString("formats." + format + ".chat_color", "");
+            chatColor = replaceColors(chatColor, "&");
+            chatColor = replaceColors(chatColor, "§");
 
-            miniStr = new StringBuilder(miniStr.toString().replace("%message%", miniMessage.escapeTags(e.getMessage())));
+            miniStr = new StringBuilder(miniStr.toString().replace("%message%", chatColor + miniMessage.escapeTags(e.getMessage())));
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
                 miniStr = new StringBuilder(PlaceholderAPI.setPlaceholders(e.getPlayer(), miniStr.toString()));
