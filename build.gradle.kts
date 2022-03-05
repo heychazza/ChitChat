@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation;
 
 plugins {
     java
@@ -29,16 +30,23 @@ dependencies {
 }
 
 group = "sh.charlie"
-version = "1.0.4"
+version = "1.0.5"
 description = "ChitChat"
 java.sourceCompatibility = JavaVersion.VERSION_16
 
 val shadowJar: ShadowJar by tasks
-shadowJar.apply {
-    archiveBaseName.set("ChitChat-${project.version}")
-    archiveClassifier.set("")
-    archiveVersion.set("")
+
+tasks.withType<JavaCompile>() {
+    options.encoding = "UTF-8"
 }
+
+task<ConfigureShadowRelocation>("relocateShadowJar") {
+    target = tasks.shadowJar.get()
+    prefix = "sh.charlie.chitchat.lib"
+}
+
+tasks.shadowJar.get().dependsOn(tasks.getByName("relocateShadowJar"))
+
 
 tasks.withType<ProcessResources> {
     filesMatching("**/plugin.yml") {
