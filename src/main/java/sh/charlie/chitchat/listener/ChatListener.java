@@ -98,7 +98,6 @@ public class ChatListener implements Listener {
             finalReplacement = replaceColors(finalReplacement, "&");
             finalReplacement = replaceColors(finalReplacement, "§");
 
-            System.out.println(finalReplacement);
             plugin.getAdventure().all().sendMessage(miniMessage.deserialize(finalReplacement));
             break;
         }
