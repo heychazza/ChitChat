@@ -21,6 +21,32 @@ public class ChatListener implements Listener {
         this.plugin = plugin;
     }
 
+    private String replaceColors(String finalReplacement, String code) {
+        finalReplacement = finalReplacement.replace(code + "l", "<bold>");
+        finalReplacement = finalReplacement.replace(code + "o", "<italic>");
+        finalReplacement = finalReplacement.replace(code + "r", "<reset>");
+
+        finalReplacement = finalReplacement.replace(code + "a", "<green>");
+        finalReplacement = finalReplacement.replace(code + "b", "<aqua>");
+        finalReplacement = finalReplacement.replace(code + "c", "<red>");
+        finalReplacement = finalReplacement.replace(code + "d", "<light_purple>");
+        finalReplacement = finalReplacement.replace(code + "e", "<yellow>");
+        finalReplacement = finalReplacement.replace(code + "f", "<white>");
+
+        finalReplacement = finalReplacement.replace(code + "0", "<black>");
+        finalReplacement = finalReplacement.replace(code + "1", "<dark_blue>");
+        finalReplacement = finalReplacement.replace(code + "2", "<dark_green>");
+        finalReplacement = finalReplacement.replace(code + "3", "<dark_aqua>");
+        finalReplacement = finalReplacement.replace(code + "4", "<dark_red>");
+        finalReplacement = finalReplacement.replace(code + "5", "<dark_purple>");
+        finalReplacement = finalReplacement.replace(code + "6", "<gold>");
+        finalReplacement = finalReplacement.replace(code + "7", "<gray>");
+        finalReplacement = finalReplacement.replace(code + "8", "<dark_gray>");
+        finalReplacement = finalReplacement.replace(code + "9", "<blue>");
+
+        return finalReplacement;
+    }
+
     @EventHandler(ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent e) {
         Player player = e.getPlayer();
@@ -50,12 +76,12 @@ public class ChatListener implements Listener {
 
                 miniStr.append(text);
 
-                if (textTooltip.size() > 0) {
-                    miniStr.append("</hover>");
-                }
-
                 if (textClickCommand != null && !textClickCommand.isEmpty()) {
                     miniStr.append("</click>");
+                }
+
+                if (textTooltip.size() > 0) {
+                    miniStr.append("</hover>");
                 }
             }
 
@@ -67,7 +93,13 @@ public class ChatListener implements Listener {
                 miniStr = new StringBuilder(PlaceholderAPI.setPlaceholders(e.getPlayer(), miniStr.toString()));
             }
 
-            plugin.getAdventure().all().sendMessage(miniMessage.deserialize(miniStr.toString()));
+            String finalReplacement = miniStr.toString();
+
+            finalReplacement = replaceColors(finalReplacement, "&");
+            finalReplacement = replaceColors(finalReplacement, "§");
+
+            System.out.println(finalReplacement);
+            plugin.getAdventure().all().sendMessage(miniMessage.deserialize(finalReplacement));
             break;
         }
     }
