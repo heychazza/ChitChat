@@ -280,8 +280,6 @@ public class MessageHandler {
      * @return
      */
     public static Component replacePlaceholderApiPlaceholders(Player player, Component component) {
-
-        final String HEX_PATTERN_STRING = "#(?:[A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})";
         Pattern pattern = PlaceholderAPI.getPlaceholderPattern();
 
         TextReplacementConfig replacementConfig = TextReplacementConfig.builder().match(pattern).replacement(((matchResult, builder) -> {
