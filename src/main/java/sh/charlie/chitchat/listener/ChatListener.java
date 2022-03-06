@@ -1,13 +1,16 @@
 package sh.charlie.chitchat.listener;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import sh.charlie.chitchat.ChitChatPlugin;
+import sh.charlie.chitchat.util.MessageHandler;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -21,34 +24,8 @@ public class ChatListener implements Listener {
         this.plugin = plugin;
     }
 
-    private String replaceColors(String finalReplacement, String code) {
-        finalReplacement = finalReplacement.replace(code + "l", "<bold>");
-        finalReplacement = finalReplacement.replace(code + "o", "<italic>");
-        finalReplacement = finalReplacement.replace(code + "r", "<reset>");
-
-        finalReplacement = finalReplacement.replace(code + "a", "<green>");
-        finalReplacement = finalReplacement.replace(code + "b", "<aqua>");
-        finalReplacement = finalReplacement.replace(code + "c", "<red>");
-        finalReplacement = finalReplacement.replace(code + "d", "<light_purple>");
-        finalReplacement = finalReplacement.replace(code + "e", "<yellow>");
-        finalReplacement = finalReplacement.replace(code + "f", "<white>");
-
-        finalReplacement = finalReplacement.replace(code + "0", "<black>");
-        finalReplacement = finalReplacement.replace(code + "1", "<dark_blue>");
-        finalReplacement = finalReplacement.replace(code + "2", "<dark_green>");
-        finalReplacement = finalReplacement.replace(code + "3", "<dark_aqua>");
-        finalReplacement = finalReplacement.replace(code + "4", "<dark_red>");
-        finalReplacement = finalReplacement.replace(code + "5", "<dark_purple>");
-        finalReplacement = finalReplacement.replace(code + "6", "<gold>");
-        finalReplacement = finalReplacement.replace(code + "7", "<gray>");
-        finalReplacement = finalReplacement.replace(code + "8", "<dark_gray>");
-        finalReplacement = finalReplacement.replace(code + "9", "<blue>");
-
-        return finalReplacement;
-    }
-
     @EventHandler(ignoreCancelled = true)
-    public void onChat(AsyncPlayerChatEvent e) {
+    public void onChat(AsyncChatEvent e) {
         Player player = e.getPlayer();
         e.setCancelled(true);
 
@@ -72,7 +49,7 @@ public class ChatListener implements Listener {
                 }
 
                 if (textClickCommand != null && !textClickCommand.isEmpty()) {
-                    miniStr.append("<click:suggest_command:").append(textClickCommand).append(">");
+                    miniStr.append("<click:suggest_command:").append(PlaceholderAPI.setPlaceholders(player, textClickCommand)).append(">");
                 }
 
                 miniStr.append(color);
@@ -89,21 +66,17 @@ public class ChatListener implements Listener {
 
             MiniMessage miniMessage = plugin.getMiniMessage();
             String chatColor = plugin.getConfig().getString("formats." + format + ".chat_color", "");
-            chatColor = replaceColors(chatColor, "&");
-            chatColor = replaceColors(chatColor, "§");
 
-            miniStr = new StringBuilder(miniStr.toString().replace("%message%", chatColor + miniMessage.escapeTags(e.getMessage())));
+            miniStr = new StringBuilder(miniStr.toString().replace("%message%", chatColor + plugin.getMiniMessage().serialize(e.message())));
+
+            String finalReplacement = MessageHandler.replaceLegacyCodes(miniStr.toString());
+            Component component = miniMessage.deserialize(plugin.convertHex(finalReplacement));
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-                miniStr = new StringBuilder(PlaceholderAPI.setPlaceholders(e.getPlayer(), miniStr.toString()));
+                component = MessageHandler.replacePlaceholderApiPlaceholders(player, component);
             }
 
-            String finalReplacement = miniStr.toString();
-
-            finalReplacement = replaceColors(finalReplacement, "&");
-            finalReplacement = replaceColors(finalReplacement, "§");
-
-            plugin.getAdventure().all().sendMessage(miniMessage.deserialize(finalReplacement));
+            MessageHandler.message(player, component);
             break;
         }
     }

@@ -42,6 +42,7 @@ public class ChitChatCommand implements CommandExecutor {
             return true;
         }
 
+
         subCommand.execute((Player) sender, Arrays.copyOfRange(args, 1, args.length));
         return true;
     }

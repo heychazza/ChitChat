@@ -1,6 +1,5 @@
 package sh.charlie.chitchat;
 
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import sh.charlie.chitchat.commands.ChitChatCommand;
 import sh.charlie.chitchat.listener.ChatListener;
+import sh.charlie.chitchat.util.MessageHandler;
 
 import java.util.Set;
 
@@ -15,7 +15,6 @@ public class ChitChatPlugin extends JavaPlugin implements Listener {
 
     private Set<String> formats;
     private MiniMessage miniMessage;
-    private BukkitAudiences adventure;
 
     @Override
     public void onEnable() {
@@ -27,7 +26,6 @@ public class ChitChatPlugin extends JavaPlugin implements Listener {
         setFormats();
 
         miniMessage = MiniMessage.miniMessage();
-        adventure = BukkitAudiences.create(this);
     }
 
     public void setFormats() {
@@ -42,11 +40,12 @@ public class ChitChatPlugin extends JavaPlugin implements Listener {
         return miniMessage;
     }
 
-    public BukkitAudiences getAdventure() {
-        return adventure;
-    }
-
     public String parse(String s) {
         return ChatColor.translateAlternateColorCodes('&', s);
+    }
+
+    final String HEX_PATTERN_STRING = "#(?:[A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})";
+    public String convertHex(String str) {
+        return str.replaceAll(HEX_PATTERN_STRING, "<$0>");
     }
 }
