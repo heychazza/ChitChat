@@ -65,12 +65,13 @@ public class ChatListener implements Listener {
             }
 
             MiniMessage miniMessage = plugin.getMiniMessage();
-            String chatColor = plugin.getConfig().getString("formats." + format + ".chat_color", "");
+            String chatColor = MessageHandler.replaceLegacyCodes(plugin.getConfig()
+                    .getString("formats." + format + ".chat_color", ""));
 
-            miniStr = new StringBuilder(miniStr.toString().replace("%message%", chatColor + plugin.getMiniMessage().serialize(e.message())));
-
-            String finalReplacement = MessageHandler.replaceLegacyCodes(miniStr.toString());
-            Component component = miniMessage.deserialize(plugin.convertHex(finalReplacement));
+            String legacyReplaced = MessageHandler.replaceLegacyCodes(miniStr.toString());
+            String finalReplaced = legacyReplaced.replace("%message%",
+                    chatColor + plugin.getMiniMessage().serialize(e.message()));
+            Component component = miniMessage.deserialize(finalReplaced);
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
                 component = MessageHandler.replacePlaceholderApiPlaceholders(player, component);
