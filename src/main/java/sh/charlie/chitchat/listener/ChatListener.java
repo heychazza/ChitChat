@@ -2,6 +2,7 @@ package sh.charlie.chitchat.listener;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -77,7 +78,10 @@ public class ChatListener implements Listener {
                 component = MessageHandler.replacePlaceholderApiPlaceholders(player, component);
             }
 
-            MessageHandler.message(player, component);
+            for (Audience audience : e.viewers()) {
+                audience.sendMessage(component);
+            }
+
             break;
         }
     }
