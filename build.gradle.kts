@@ -32,7 +32,7 @@ dependencies {
 }
 
 group = "sh.charlie"
-version = "1.0.8"
+version = "1.0.9"
 description = "ChitChat"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
