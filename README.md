@@ -60,6 +60,5 @@ formats:
     chat_tooltip: []
     chat_click_command: ''
 ```
----
 
-[![Analyse](https://i.imgur.com/sj3UUWJ.png)](https://analyse.net/)
+[![Analyse](https://i.imgur.com/7D1CHSS.png)](https://analyse.net/)
