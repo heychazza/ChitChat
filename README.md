@@ -1,6 +1,6 @@
 ![img.png](.github/img.png)
 # ChitChat
-A lightweight, simple-to-use chat plugin for Spigot and Paper Minecraft Servers - that supports 1.16+ hex-based styling, tooltips, click commands and much more.
+A lightweight, simple-to-use chat plugin for Spigot* and Paper Minecraft Servers - that supports 1.16+ hex-based styling, tooltips, click commands and much more.
 
 This plugin is **heavily** inspired by [DeluxeChat](https://www.spigotmc.org/resources/deluxechat.1277/), and was built due DeluxeChat becoming abandoned (in its current state). This plugin was built as a plug-and-play solution to DeluxeChat, due to this, the configuration file is near identical until DeluxeChat gets updated.
 
@@ -60,5 +60,7 @@ formats:
     chat_tooltip: []
     chat_click_command: ''
 ```
+
+*Only works with servers that supports Papers MiniMessage protocol.
 
 [![Analyse](https://i.imgur.com/7D1CHSS.png)](https://analyse.net/)
