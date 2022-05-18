@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import sh.charlie.chitchat.ChitChatPlugin;
+import sh.charlie.chitchat.util.Kyorifier;
 import sh.charlie.chitchat.util.MessageHandler;
 
 import java.util.Arrays;
@@ -72,11 +73,14 @@ public class ChatListener implements Listener {
             String legacyReplaced = MessageHandler.replaceLegacyCodes(miniStr.toString());
             String finalReplaced = legacyReplaced.replace("%message%",
                     chatColor + plugin.getMiniMessage().serialize(e.message()));
-            Component component = miniMessage.deserialize(finalReplaced);
+
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-                component = MessageHandler.replacePlaceholderApiPlaceholders(player, component);
+                finalReplaced = Kyorifier.kyorify(PlaceholderAPI.setPlaceholders(player, finalReplaced));
             }
+
+            Component component = miniMessage.deserialize(finalReplaced);
+
 
             for (Audience audience : e.viewers()) {
                 audience.sendMessage(component);

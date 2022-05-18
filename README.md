@@ -63,4 +63,4 @@ formats:
 
 *Only works with servers that supports Papers MiniMessage protocol.
 
-[![Analyse](https://i.imgur.com/7D1CHSS.png)](https://analyse.net/)
+[![Analyse](https://i.imgur.com/7D1CHSS.png)](https://analyse.net/ref/chitchat)
