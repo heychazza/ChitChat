@@ -41,10 +41,14 @@ public class ChatListener implements Listener {
             List<String> configKeys = Arrays.asList("channel", "prefix", "name", "suffix", "chat");
 
             for (String configKey : configKeys) {
-                String text = plugin.getConfig().getString("formats." + format + "." + configKey);
+                String text = plugin.getConfig().getString("formats." + format + "." + configKey, "");
                 String color = plugin.getConfig().getString("formats." + format + "." + configKey + "_color", "");
                 List<String> textTooltip = plugin.getConfig().getStringList("formats." + format + "." + configKey + "_tooltip");
                 String textClickCommand = plugin.getConfig().getString("formats." + format + "." + configKey + "_click_command");
+
+                if(text.isEmpty() && configKey == "chat") {
+                    text = "%message%";
+                }
 
                 if (textTooltip.size() > 0) {
                     miniStr.append("<hover:show_text:\"").append(String.join("\n", textTooltip)).append("\">");
@@ -67,12 +71,10 @@ public class ChatListener implements Listener {
             }
 
             MiniMessage miniMessage = plugin.getMiniMessage();
-            String chatColor = MessageHandler.replaceLegacyCodes(plugin.getConfig()
-                    .getString("formats." + format + ".chat_color", ""));
+            String chatColor = MessageHandler.replaceLegacyCodes(plugin.getConfig().getString("formats." + format + ".chat_color", ""));
 
             String legacyReplaced = MessageHandler.replaceLegacyCodes(miniStr.toString());
-            String finalReplaced = legacyReplaced.replace("%message%",
-                    chatColor + plugin.getMiniMessage().serialize(e.message()));
+            String finalReplaced = legacyReplaced.replace("%message%", chatColor + plugin.getMiniMessage().serialize(e.message()));
 
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
