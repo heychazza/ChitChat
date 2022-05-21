@@ -76,13 +76,15 @@ public class ChatListener implements Listener {
             String legacyReplaced = MessageHandler.replaceLegacyCodes(miniStr.toString());
             String finalReplaced = legacyReplaced.replace("%message%", chatColor + plugin.getMiniMessage().serialize(e.message()));
 
+//            plugin.getLogger().info("[PRE-KYOIFY] " + PlaceholderAPI.setPlaceholders(player, finalReplaced));
 
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
                 finalReplaced = Kyorifier.kyorify(PlaceholderAPI.setPlaceholders(player, finalReplaced));
             }
+            plugin.getLogger().info("[FINAL-REPLACED] " + finalReplaced);
+            plugin.getLogger().info(" ");
 
             Component component = miniMessage.deserialize(finalReplaced);
-
 
             for (Audience audience : e.viewers()) {
                 audience.sendMessage(component);
