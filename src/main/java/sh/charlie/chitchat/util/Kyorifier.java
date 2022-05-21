@@ -35,7 +35,7 @@ public final class Kyorifier {
         FORMATTERS.put('k', "obfuscated");
         FORMATTERS.put('l', "bold");
         FORMATTERS.put('m', "strikethrough");
-        FORMATTERS.put('n', "underline");
+        FORMATTERS.put('n', "underlined");
         FORMATTERS.put('o', "italic");
         FORMATTERS.put('r', "reset");
     }
