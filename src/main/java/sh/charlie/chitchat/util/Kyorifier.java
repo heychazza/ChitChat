@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
 public final class Kyorifier {
     private static final Map<Character, String> COLOURS = new HashMap<>(15);
     private static final Map<Character, String> FORMATTERS = new HashMap<>(6);
-    private static final Pattern pattern = Pattern.compile("&(?<code>[\\da-fk-or])|[&{\\[<]?[#x](?<hex>(&?(?<!\\/)#[0-9a-f]{3,6}))[}\\\\]>]?");
+    private static final Pattern pattern = Pattern.compile("&(?<code>[\\da-fk-or])|[&{\\[<]?[#x](?<hex>(&?(?<!\\/#)[A-Fa-f\\d]){6})[}\\]>]?");
 
     static {
         COLOURS.put('0', "black");
