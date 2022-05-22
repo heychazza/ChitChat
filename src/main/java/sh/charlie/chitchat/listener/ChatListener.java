@@ -73,16 +73,13 @@ public class ChatListener implements Listener {
             MiniMessage miniMessage = plugin.getMiniMessage();
             String chatColor = MessageHandler.replaceLegacyCodes(plugin.getConfig().getString("formats." + format + ".chat_color", ""));
 
-            String legacyReplaced = MessageHandler.replaceLegacyCodes(miniStr.toString());
-            String finalReplaced = legacyReplaced.replace("%message%", chatColor + plugin.getMiniMessage().serialize(e.message()));
-
-
+            String messageFormat = MessageHandler.replaceLegacyCodes(miniStr.toString());
             if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-                finalReplaced = Kyorifier.kyorify(PlaceholderAPI.setPlaceholders(player, finalReplaced));
+                messageFormat = Kyorifier.kyorify(PlaceholderAPI.setPlaceholders(player, messageFormat));
             }
 
+            String finalReplaced = messageFormat.replace("%message%", chatColor + plugin.getMiniMessage().serialize(e.message()));
             Component component = miniMessage.deserialize(finalReplaced);
-
 
             for (Audience audience : e.viewers()) {
                 audience.sendMessage(component);
